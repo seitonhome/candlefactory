@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candle Factory Suite — Software para fabricantes de velas artesanales</title>
+<meta name="description" content="El único software diseñado para fabricantes de velas artesanales. Controla inventario, costos, producción y etiquetas desde un solo lugar.">
+<meta property="og:title" content="Candle Factory Suite — Software para velas artesanales">
+<meta property="og:description" content="Deja de usar hojas de cálculo. Gestiona tu fábrica de velas con el software hecho para ti.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕯️</text></svg>">
+<style>
+:root{--nv:#1C1342;--nv2:#2A1D5E;--gd:#A07A45;--gd2:#C9A96E;--cr:#FAF7F2;--cr2:#F3EDE3;--cr3:#EAE0D0;--t1:#1C1342;--t2:#4A4270;--t3:#8B82A8;--wh:#fff;--ok:#1D9E75;--er:#D85A30}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:Georgia,serif;background:var(--cr);color:var(--t1);line-height:1.65;overflow-x:hidden}
+h1,h2,h3{font-family:Georgia,serif;font-weight:normal}
+.s{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.w{max-width:1080px;margin:0 auto;padding:0 24px}
+.ws{max-width:720px;margin:0 auto;padding:0 24px}
+.tc{text-align:center}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,19,66,.97);border-bottom:1px solid rgba(160,122,69,.2);padding:14px 24px}
+.ni{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nb{display:flex;align-items:center;gap:10px;font-family:Georgia,serif;font-size:17px;color:#fff;text-decoration:none}
+.nr{display:flex;align-items:center;gap:16px}
+.nl{display:flex;align-items:center;gap:28px}
+.nl a{font-family:-apple-system,sans-serif;font-size:13px;color:rgba(255,255,255,.7);text-decoration:none;transition:color .2s}
+.nl a:hover{color:var(--gd2)}
+.nc{background:var(--gd);color:var(--nv)!important;padding:8px 18px;border-radius:8px;font-weight:700!important}
+.nc:hover{background:var(--gd2)!important}
+/* LANGUAGE SWITCHER */
+.lang-sw{display:flex;align-items:center;gap:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;overflow:hidden;flex-shrink:0}
+.ls-btn{background:none;border:none;cursor:pointer;font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.75);transition:all .2s;padding:5px 12px;letter-spacing:.5px}
+.ls-btn.active{background:var(--gd);color:var(--nv)}
+.ls-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,.1)}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--nv) 0%,var(--nv2) 50%,#3A2470 100%);padding:140px 24px 100px;position:relative;overflow:hidden}
+.hi{max-width:1080px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hb{display:inline-flex;align-items:center;gap:8px;background:rgba(160,122,69,.15);border:1px solid rgba(160,122,69,.35);padding:6px 14px;border-radius:100px;margin-bottom:24px;font-family:-apple-system,sans-serif;font-size:12px;color:var(--gd2);letter-spacing:.5px}
+.hero h1{font-size:clamp(32px,4vw,52px);color:#fff;line-height:1.15;margin-bottom:20px;letter-spacing:-1px}
+.ac{color:var(--gd2)}
+.hs{font-family:-apple-system,sans-serif;font-size:17px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:36px}
+.hc{display:flex;gap:12px;flex-wrap:wrap}
+.bp{display:inline-flex;align-items:center;gap:8px;background:var(--gd);color:var(--nv);padding:14px 28px;border-radius:10px;font-family:-apple-system,sans-serif;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.bp:hover{background:var(--gd2);transform:translateY(-1px)}
+.bse{display:inline-flex;align-items:center;background:transparent;color:rgba(255,255,255,.8);padding:14px 24px;border-radius:10px;border:1px solid rgba(255,255,255,.2);font-family:-apple-system,sans-serif;font-size:15px;text-decoration:none;transition:all .2s}
+.bse:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.ht{margin-top:36px;display:flex;align-items:center;gap:20px;font-family:-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.45)}
+
+/* MOCKUP */
+.hm{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.mb{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.md{width:10px;height:10px;border-radius:50%}
+.mt2{font-family:-apple-system,sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-left:4px}
+.mk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mki{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px}
+.mkl{font-family:-apple-system,sans-serif;font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px}
+.mkv{font-family:-apple-system,sans-serif;font-size:18px;font-weight:700;color:#fff}
+.mkv.g{color:var(--gd2)}.mkv.gr{color:#5DCAA5}
+.mc2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px}
+.mcl{font-family:-apple-system,sans-serif;font-size:10px;color:rgba(255,255,255,.4);margin-bottom:10px}
+.br2{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bn{font-family:-apple-system,sans-serif;font-size:9px;color:rgba(255,255,255,.5);width:70px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px}
+.bf{height:100%;border-radius:3px}
+.bv{font-family:-apple-system,sans-serif;font-size:9px;color:rgba(255,255,255,.5);width:30px;text-align:right}
+.min2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px}
+.ir{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-family:-apple-system,sans-serif;font-size:10px}
+.ir:last-child{border-bottom:none}
+.in2{color:rgba(255,255,255,.7)}.iq{color:rgba(255,255,255,.4)}
+.ist{padding:2px 7px;border-radius:10px;font-size:9px}
+.iok{background:rgba(29,158,117,.2);color:#5DCAA5}.iw{background:rgba(239,159,39,.2);color:#EF9F27}.icr{background:rgba(216,90,48,.2);color:#F09595}
+
+/* SECTIONS */
+.sec{padding:100px 24px}
+.sl{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gd);margin-bottom:16px;font-weight:600}
+.sh{font-size:clamp(26px,3vw,40px);color:var(--nv);line-height:1.2;margin-bottom:48px;letter-spacing:-.5px}
+.sh2{font-size:clamp(26px,3vw,40px);line-height:1.2;margin-bottom:12px;letter-spacing:-.5px}
+.sub{font-family:-apple-system,sans-serif;font-size:16px;color:var(--t3);margin-bottom:56px}
+
+/* PROBLEM */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pc{background:var(--wh);border:1px solid rgba(28,19,66,.08);border-radius:14px;padding:28px;position:relative;overflow:hidden}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--er);opacity:.4}
+.pc span.em{font-size:32px;margin-bottom:16px;display:block}
+.pc h3{font-family:-apple-system,sans-serif;font-size:15px;font-weight:600;color:var(--nv);margin-bottom:8px}
+.pc p{font-family:-apple-system,sans-serif;font-size:13px;color:var(--t2);line-height:1.55}
+
+/* SOLUTION */
+.ss2{background:var(--nv)}
+.ss2 .sl{color:var(--gd2)}.ss2 .sh2{color:#fff}
+.ss2 .sub{color:rgba(255,255,255,.6);max-width:560px;margin:0 auto 56px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mcd{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px;transition:all .2s}
+.mcd:hover{background:rgba(255,255,255,.07);border-color:rgba(160,122,69,.25);transform:translateY(-2px)}
+.mcd .em2{font-size:28px;margin-bottom:14px;display:block}
+.mcd h3{font-family:-apple-system,sans-serif;font-size:14px;font-weight:600;color:#fff;margin-bottom:8px}
+.mcd p{font-family:-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.5);line-height:1.55}
+.pr2{display:inline-block;margin-top:10px;font-family:-apple-system,sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--gd2);background:rgba(160,122,69,.12);border:1px solid rgba(160,122,69,.2);padding:2px 7px;border-radius:10px}
+
+/* FEATURES */
+.fl{display:flex;flex-direction:column;gap:56px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.frr{direction:rtl}.frr>*{direction:ltr}
+.ft h3{font-size:24px;color:var(--nv);margin-bottom:14px;letter-spacing:-.3px}
+.ft p{font-family:-apple-system,sans-serif;font-size:15px;color:var(--t2);line-height:1.65;margin-bottom:20px}
+.fcl{list-style:none}
+.fcl li{font-family:-apple-system,sans-serif;font-size:14px;color:var(--t2);display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.fcl li::before{content:'✓';color:var(--ok);font-weight:700;flex-shrink:0;margin-top:1px}
+.fv{background:var(--nv);border-radius:16px;padding:24px;border:1px solid rgba(160,122,69,.15);min-height:220px;display:flex;flex-direction:column;gap:10px}
+.vt{font-family:-apple-system,sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-bottom:6px}
+.vc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px}
+.vr{display:flex;justify-content:space-between;align-items:center;font-family:-apple-system,sans-serif;font-size:11px;color:rgba(255,255,255,.7);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.vr:last-child{border-bottom:none}
+.vv{color:#fff;font-weight:600}.vv.g{color:var(--gd2)}.vv.gr{color:#5DCAA5}
+
+/* PROOF */
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:60px}
+.tm{background:var(--wh);border:1px solid rgba(28,19,66,.07);border-radius:14px;padding:28px}
+.stars{color:var(--gd);font-size:14px;margin-bottom:14px}
+.tm blockquote{font-style:italic;font-size:15px;color:var(--nv);line-height:1.6;margin-bottom:18px}
+.ta{font-family:-apple-system,sans-serif;font-size:12px;color:var(--t3)}
+.ta strong{display:block;color:var(--nv);font-size:13px;margin-bottom:2px}
+.stb{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:var(--nv);border-radius:16px;padding:40px}
+.si{text-align:center}
+.sn{font-size:36px;color:var(--gd2);letter-spacing:-1px;margin-bottom:6px}
+.sl2{font-family:-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.5)}
+
+/* LANGUAGES SECTION */
+.lang-sec{background:var(--nv);padding:80px 24px;position:relative;overflow:hidden}
+.lang-sec::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(160,122,69,.1) 0%,transparent 70%);pointer-events:none}
+.lang-sec::after{content:'';position:absolute;bottom:-120px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
+.lang-big-num{font-size:clamp(80px,15vw,160px);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:3px rgba(160,122,69,.55);letter-spacing:-4px;margin-bottom:-20px;font-family:-apple-system,sans-serif}
+.lang-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:900px;margin:0 auto 40px}
+.lang-card{background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);border-radius:16px;padding:22px 12px;text-align:center;transition:all .25s;cursor:default}
+.lang-card:hover{background:rgba(201,169,110,.2);border-color:rgba(201,169,110,.6);transform:translateY(-5px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.lang-flag{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(201,169,110,.25),rgba(160,122,69,.15));border:1.5px solid rgba(201,169,110,.55);color:var(--gd2);font-size:17px;font-weight:800;font-family:-apple-system,sans-serif;margin:0 auto 12px;letter-spacing:1px}
+.lang-name{font-family:-apple-system,sans-serif;font-size:14px;font-weight:700;color:var(--gd2);margin-bottom:4px}
+.lang-native{font-family:-apple-system,sans-serif;font-size:10px;color:rgba(255,255,255,.6)}
+.lang-note-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:10px 24px}
+
+/* PRICING */
+.prg{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;max-width:820px;margin:0 auto}
+.prc{background:var(--wh);border:1px solid rgba(28,19,66,.1);border-radius:20px;padding:36px;position:relative;overflow:hidden}
+.prc.pro{background:var(--nv);border-color:rgba(160,122,69,.3)}
+.mop{position:absolute;top:20px;right:20px;background:rgba(160,122,69,.15);border:1px solid rgba(160,122,69,.3);color:var(--gd2);font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:100px}
+.pln{font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.prc.pro .pln{color:rgba(255,255,255,.4)}
+.prr{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
+.prs{font-family:-apple-system,sans-serif;font-size:20px;font-weight:700;color:var(--nv)}
+.prc.pro .prs{color:var(--gd2)}
+.pra{font-family:-apple-system,sans-serif;font-size:48px;font-weight:800;color:var(--nv);line-height:1;letter-spacing:-2px}
+.prc.pro .pra{color:#fff}
+.prp{font-family:-apple-system,sans-serif;font-size:13px;color:var(--t3)}
+.prc.pro .prp{color:rgba(255,255,255,.4)}
+.prn{font-family:-apple-system,sans-serif;font-size:12px;color:var(--t3);margin-bottom:28px;line-height:1.5}
+.prc.pro .prn{color:rgba(255,255,255,.4)}
+.pfd{border:none;border-top:1px solid rgba(28,19,66,.08);margin:24px 0}
+.prc.pro .pfd{border-color:rgba(255,255,255,.08)}
+.pfl{list-style:none;margin-bottom:32px}
+.pfl li{font-family:-apple-system,sans-serif;font-size:13px;color:var(--t2);display:flex;align-items:flex-start;gap:10px;padding:6px 0}
+.prc.pro .pfl li{color:rgba(255,255,255,.7)}
+.ck{color:var(--ok);font-weight:700;flex-shrink:0}
+.prc.pro .ck{color:var(--gd2)}
+.fb{font-size:9px;font-weight:700;letter-spacing:.5px;background:rgba(160,122,69,.15);color:var(--gd);padding:1px 6px;border-radius:6px;margin-left:4px}
+.prc.pro .fb{background:rgba(160,122,69,.2);color:var(--gd2)}
+.bb{display:block;width:100%;text-align:center;padding:15px;border-radius:12px;font-family:-apple-system,sans-serif;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.bbe{background:var(--cr2);color:var(--nv);border:1px solid rgba(28,19,66,.15)}.bbe:hover{background:var(--cr3)}
+.bbp{background:var(--gd);color:var(--nv)}.bbp:hover{background:var(--gd2);transform:translateY(-1px)}
+.pg3{text-align:center;margin-top:28px;font-family:-apple-system,sans-serif;font-size:12px;color:var(--t3)}
+
+/* FAQ */
+.fql{display:flex;flex-direction:column;gap:2px;max-width:720px;text-align:left;margin:0 auto}
+.fqi{background:var(--wh);border:1px solid rgba(28,19,66,.08);border-radius:10px;overflow:hidden}
+.fqq{width:100%;text-align:left;padding:20px 24px;background:none;border:none;cursor:pointer;font-family:-apple-system,sans-serif;font-size:14px;font-weight:600;color:var(--nv);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.fqq:hover{background:var(--cr)}
+.fqarr{font-size:18px;color:var(--gd);transition:transform .2s;flex-shrink:0}
+.fqa{display:none;padding:0 24px 20px;font-family:-apple-system,sans-serif;font-size:14px;color:var(--t2);line-height:1.65}
+.fqi.open .fqa{display:block}
+.fqi.open .fqarr{transform:rotate(180deg)}
+.fqi.open .fqq{color:var(--gd)}
+
+/* FINAL CTA */
+.sct{padding:100px 24px;background:linear-gradient(135deg,var(--nv) 0%,#2A1D5E 50%,#3A2470 100%);text-align:center;position:relative;overflow:hidden}
+.sct h2{font-size:clamp(28px,4vw,48px);color:#fff;margin-bottom:16px;letter-spacing:-1px}
+.sct p{font-family:-apple-system,sans-serif;font-size:17px;color:rgba(255,255,255,.6);margin-bottom:40px}
+.ctb{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.cpn{margin-top:24px;font-family:-apple-system,sans-serif;font-size:13px;color:rgba(255,255,255,.35)}
+
+/* FOOTER */
+footer{background:#0F0C22;padding:40px 24px}
+.fi{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.fbr{font-family:Georgia,serif;font-size:15px;color:rgba(255,255,255,.5)}
+.fls{display:flex;gap:24px}
+.fls a{font-family:-apple-system,sans-serif;font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.fls a:hover{color:var(--gd2)}
+.fcp{font-family:-apple-system,sans-serif;font-size:11px;color:rgba(255,255,255,.2);width:100%;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+
+/* RESPONSIVE */
+@media(max-width:900px){.prc-grid-3{grid-template-columns:1fr!important}.lang-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.nl{display:none}.hi{grid-template-columns:1fr}.hm{display:none}.pg{grid-template-columns:1fr}.mg{grid-template-columns:1fr 1fr}.fr{grid-template-columns:1fr}.frr{direction:ltr}.tg{grid-template-columns:1fr}.stb{grid-template-columns:1fr 1fr}.prg{grid-template-columns:1fr}.fi{flex-direction:column;text-align:center}.fls{justify-content:center}.lang-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.hero{padding:120px 20px 80px}.mg{grid-template-columns:1fr}.stb{grid-template-columns:1fr 1fr;gap:16px;padding:24px}.lang-grid{grid-template-columns:repeat(2,1fr)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .6s ease-out both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="ni">
+    <a href="#" class="nb">🕯️ Candle Factory Suite</a>
+    <div class="nr">
+      <div class="nl s">
+        <a href="#modulos" data-i18n="nav_modules">Módulos</a>
+        <a href="#precios" data-i18n="nav_pricing">Precios</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="https://hotmart.com/product/candle-factory-suite-pro-direct" class="nc" target="_blank" data-i18n-html="nav_buy"><span style="display:inline-block;width:7px;height:7px;background:#ff6b4a;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite"></span>Comprar ahora — $24.99</a>
+      </div>
+      <div class="lang-sw">
+        <button id="lang-es" class="ls-btn active" onclick="setLang('es')">ES</button>
+        <button id="lang-en" class="ls-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hi">
+    <div>
+      <div class="hb fu s" data-i18n="hero_badge">✦ Software para fabricantes de velas artesanales</div>
+      <h1 class="fu d1" data-i18n-html="hero_h1">Tu taller merece algo <span class="ac">mejor que Excel.</span></h1>
+      <p class="hs s fu d2" data-i18n="hero_sub">Candle Factory Suite es el único software diseñado específicamente para fabricantes de velas. Controla inventario, costos, producción, lotes de curado y etiquetas desde un solo lugar.</p>
+      <div class="hc fu d3">
+        <a href="https://hotmart.com/product/candle-factory-suite-pro-direct" class="bp s" target="_blank" data-i18n="hero_cta">🕯️ Comenzar con PRO Completo — $24.99</a>
+        <a href="#precios" class="bse s" data-i18n="hero_plans">Ver planes</a>
+      </div>
+      <div class="ht s fu d4">
+        <span data-i18n="hero_t1">🔒 Pago único</span>
+        <span data-i18n="hero_t2">💻 Windows desktop</span>
+        <span data-i18n="hero_t3">🌎 6 idiomas</span>
+      </div>
+    </div>
+    <div class="hm fu d2">
+      <div class="mb"><div class="md" style="background:#FF5F57"></div><div class="md" style="background:#FEBC2E"></div><div class="md" style="background:#28C840"></div><span class="mt2 s">Dashboard PRO — Candle Factory Suite</span></div>
+      <div class="mk">
+        <div class="mki"><div class="mkl s" data-i18n="mk_productions">Producciones</div><div class="mkv">12</div></div>
+        <div class="mki"><div class="mkl s" data-i18n="mk_inventory">Inventario</div><div class="mkv g">$2,840</div></div>
+        <div class="mki"><div class="mkl s" data-i18n="mk_curing">En curado</div><div class="mkv">3</div></div>
+        <div class="mki"><div class="mkl s" data-i18n="mk_profit">Ganancia est.</div><div class="mkv gr">$640</div></div>
+      </div>
+      <div class="mc2"><div class="mcl s" data-i18n="mk_top">Top productos fabricados</div>
+        <div class="br2"><div class="bn s" data-i18n="mk_coconut">Vela de coco</div><div class="bt"><div class="bf" style="width:82%;background:#A07A45"></div></div><div class="bv s">82u</div></div>
+        <div class="br2"><div class="bn s" data-i18n="mk_lavender">Vela lavanda</div><div class="bt"><div class="bf" style="width:67%;background:#534AB7"></div></div><div class="bv s">67u</div></div>
+        <div class="br2"><div class="bn s" data-i18n="mk_vanilla">Vela vainilla</div><div class="bt"><div class="bf" style="width:45%;background:#1D9E75"></div></div><div class="bv s">45u</div></div>
+      </div>
+      <div class="min2">
+        <div style="font-family:-apple-system,sans-serif;font-size:10px;color:rgba(255,255,255,.3);margin-bottom:6px" data-i18n="mk_inv_title">Inventario</div>
+        <div class="ir"><span class="in2 s" data-i18n="mk_coco_wax">Cera de coco</span><span class="iq s">2.4 kg</span><span class="ist iok s" data-i18n="mk_ok">OK</span></div>
+        <div class="ir"><span class="in2 s" data-i18n="mk_lav_frag">Fragancia lavanda</span><span class="iq s">80 ml</span><span class="ist iw s" data-i18n="mk_low">Bajo</span></div>
+        <div class="ir"><span class="in2 s" data-i18n="mk_wick">Pabilo #6</span><span class="iq s">5 g</span><span class="ist icr s" data-i18n="mk_critical">Crítico</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="sec" style="background:var(--cr)">
+  <div class="ws">
+    <div class="sl s" data-i18n="prob_label">El problema</div>
+    <h2 class="sh" data-i18n="prob_h2">¿Te suena familiar?</h2>
+    <div class="pg">
+      <div class="pc"><span class="em">📊</span><h3 class="s" data-i18n="prob1_h3">Hojas de cálculo interminables</h3><p class="s" data-i18n="prob1_p">Fórmulas que se rompen, datos desincronizados y horas perdidas actualizando manualmente cada cambio de inventario.</p></div>
+      <div class="pc"><span class="em">💸</span><h3 class="s" data-i18n="prob2_h3">No sabes si estás ganando</h3><p class="s" data-i18n="prob2_p">Calculas a ojo el costo de cada vela. No tienes claro tu margen real, y a veces vendes por debajo del costo de producción.</p></div>
+      <div class="pc"><span class="em">📦</span><h3 class="s" data-i18n="prob3_h3">Inventario a ciegas</h3><p class="s" data-i18n="prob3_p">Te quedas sin cera en medio de producción. No ves el stock crítico hasta que es demasiado tarde para hacer el pedido.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="sec ss2" id="modulos">
+  <div class="w">
+    <div class="tc">
+      <div class="sl s" data-i18n="sol_label">La solución</div>
+      <h2 class="sh2" data-i18n="sol_h2">Todo lo que necesita tu taller, en un solo lugar.</h2>
+      <p class="sub s" data-i18n="sol_sub">Diseñado desde cero para fabricantes de velas. Nada de software genérico adaptado.</p>
+    </div>
+    <div class="mg">
+      <div class="mcd"><span class="em2">📦</span><h3 class="s" data-i18n="mod1_h3">Inventario inteligente</h3><p class="s" data-i18n="mod1_p">Stock en tiempo real, alertas de nivel crítico, categorías por material y exportación CSV.</p></div>
+      <div class="mcd"><span class="em2">🏭</span><h3 class="s" data-i18n="mod2_h3">Producción guiada</h3><p class="s" data-i18n="mod2_p">Órdenes de fabricación paso a paso con checklist, temporizadores y seguimiento de avance.</p></div>
+      <div class="mcd"><span class="em2">💰</span><h3 class="s" data-i18n="mod3_h3">Costos y margen</h3><p class="s" data-i18n="mod3_p">Costo exacto de cada vela incluyendo mano de obra, energía y merma. Precio sugerido automático.</p></div>
+      <div class="mcd"><span class="em2">🧪</span><h3 class="s" data-i18n="mod4_h3">Recetas completas</h3><p class="s" data-i18n="mod4_p">Ingredientes, temperaturas, tiempos de curado y fragancia. Duplica y adapta con un clic.</p></div>
+      <div class="mcd"><span class="em2">🏷️</span><h3 class="s" data-i18n="mod5_h3">Etiquetas y QR</h3><p class="s" data-i18n="mod5_p">Genera etiquetas personalizadas con código QR para trazabilidad de cada lote.</p></div>
+      <div class="mcd"><span class="em2">📊</span><h3 class="s" data-i18n="mod6_h3">Reportes en PDF</h3><p class="s" data-i18n="mod6_p">Exporta reportes de producción, inventario y financiero listos para compartir.</p><span class="pr2">PRO</span></div>
+      <div class="mcd"><span class="em2">🔬</span><h3 class="s" data-i18n="mod7_h3">Control de calidad</h3><p class="s" data-i18n="mod7_p">Inspecciones por lote, tasa de rechazo y defectos. Trazabilidad completa.</p><span class="pr2">PRO</span></div>
+      <div class="mcd"><span class="em2">🛒</span><h3 class="s" data-i18n="mod8_h3">Compras y proveedores</h3><p class="s" data-i18n="mod8_p">Órdenes de compra con líneas de materiales. Al recibir, el inventario se actualiza solo.</p><span class="pr2">PRO</span></div>
+      <div class="mcd"><span class="em2">📈</span><h3 class="s" data-i18n="mod9_h3">Calculadora PRO</h3><p class="s" data-i18n="mod9_p">Punto de equilibrio, proyección de ingresos y rentabilidad por lote.</p><span class="pr2">PRO</span></div>
+      <div class="mcd"><span class="em2">🛍️</span><h3 class="s" data-i18n="mod10_h3">Módulo de Ventas</h3><p class="s" data-i18n="mod10_p">Registra órdenes de venta, clientes y pagos. Reportes de ingresos, productos más vendidos y ventas por periodo.</p><span class="pr2">PRO</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" style="background:var(--cr)">
+  <div class="w">
+    <div class="tc">
+      <div class="sl s" data-i18n="feat_label">Cómo funciona</div>
+      <h2 class="sh2" style="color:var(--nv);margin-bottom:8px" data-i18n="feat_h2">Diseñado para tu flujo de trabajo real</h2>
+      <p class="sub s" data-i18n="feat_sub">No necesitas capacitarte. Si haces velas, lo entiendes.</p>
+    </div>
+    <div class="fl">
+      <div class="fr">
+        <div class="ft">
+          <h3 data-i18n="f1_h3">Fabrica con confianza, paso a paso</h3>
+          <p class="s" data-i18n="f1_p">Cada producción tiene una checklist guiada: preparar área, pesar materiales, fundir cera, agregar fragancia, verter y curar. No se te olvida nada.</p>
+          <ul class="fcl">
+            <li class="s" data-i18n="f1_li1">Temporizadores integrados por paso</li>
+            <li class="s" data-i18n="f1_li2">Pasos personalizables por técnica</li>
+            <li class="s" data-i18n="f1_li3">Barra de progreso visible en tiempo real</li>
+            <li class="s" data-i18n="f1_li4">Historial completo de cada producción</li>
+          </ul>
+        </div>
+        <div class="fv">
+          <div class="vt s" data-i18n="f1_mk_title">CF-20260529-0004 · 10 velas</div>
+          <div class="vc">
+            <div class="vr"><span class="s" style="color:#5DCAA5" data-i18n="f1_mk_s1">✓ Preparar área</span><span class="vv gr s" data-i18n="f1_mk_s1s">Completado</span></div>
+            <div class="vr"><span class="s" style="color:#5DCAA5" data-i18n="f1_mk_s2">✓ Pesar materiales</span><span class="vv gr s" data-i18n="f1_mk_s2s">Completado</span></div>
+            <div class="vr"><span class="s" style="color:rgba(255,255,255,.7)" data-i18n="f1_mk_s3">⧗ Fundir cera</span><span class="s" style="color:#EF9F27;font-weight:600" data-i18n="f1_mk_s3s">En proceso</span></div>
+            <div class="vr"><span class="s" style="color:rgba(255,255,255,.3)" data-i18n="f1_mk_s4">○ Agregar fragancia</span><span class="s" style="color:rgba(255,255,255,.2)" data-i18n="f1_mk_s4s">Pendiente</span></div>
+            <div class="vr"><span class="s" style="color:rgba(255,255,255,.3)" data-i18n="f1_mk_s5">○ Verter y enfriar</span><span class="s" style="color:rgba(255,255,255,.2)" data-i18n="f1_mk_s5s">Pendiente</span></div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center">
+            <span class="s" style="font-size:11px;color:rgba(255,255,255,.4)" data-i18n="f1_mk_prog">Progreso</span>
+            <div style="flex:1;margin:0 12px;height:6px;background:rgba(255,255,255,.06);border-radius:3px"><div style="width:40%;height:100%;background:#5DCAA5;border-radius:3px"></div></div>
+            <span class="s" style="font-size:11px;color:#5DCAA5">2 / 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="fr frr">
+        <div class="ft">
+          <h3 data-i18n="f2_h3">Conoce el costo exacto de cada vela</h3>
+          <p class="s" data-i18n="f2_p">Ingresa materiales, mano de obra y energía. La calculadora te dice cuánto cuesta fabricar y qué precio poner para ganar el margen que quieres.</p>
+          <ul class="fcl">
+            <li class="s" data-i18n="f2_li1">Costo de materiales por receta automático</li>
+            <li class="s" data-i18n="f2_li2">Mano de obra y costos fijos prorrateados</li>
+            <li class="s" data-i18n="f2_li3">Precio sugerido con margen configurable</li>
+            <li class="s" data-i18n="f2_li4">Historial de costos guardado por fecha</li>
+          </ul>
+        </div>
+        <div class="fv">
+          <div class="vt s" data-i18n="f2_mk_title">Costos — Vela de coco y vainilla</div>
+          <div class="vc">
+            <div class="vr"><span class="s" data-i18n="f2_mk_r1">Cera de coco (120 g)</span><span class="vv s">$0.72</span></div>
+            <div class="vr"><span class="s" data-i18n="f2_mk_r2">Fragancia vainilla (18 g)</span><span class="vv s">$0.90</span></div>
+            <div class="vr"><span class="s" data-i18n="f2_mk_r3">Pabilo + recipiente</span><span class="vv s">$0.45</span></div>
+            <div class="vr"><span class="s" data-i18n="f2_mk_r4">Etiqueta + caja</span><span class="vv s">$0.38</span></div>
+            <div class="vr"><span class="s" data-i18n="f2_mk_r5">Mano de obra estimada</span><span class="vv s">$0.80</span></div>
+          </div>
+          <div style="background:rgba(160,122,69,.1);border:1px solid rgba(160,122,69,.2);border-radius:8px;padding:12px;display:flex;justify-content:space-between;align-items:center">
+            <div><div class="s" style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:3px" data-i18n="f2_mk_label">Costo → Precio sugerido</div><div class="s" style="font-size:20px;font-weight:700;color:var(--gd2)">$3.25 → $6.50</div></div>
+            <div style="text-align:right"><div class="s" style="font-size:9px;color:rgba(255,255,255,.4)" data-i18n="f2_mk_margin">Margen</div><div class="s" style="font-size:20px;font-weight:700;color:#5DCAA5">50%</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="ft">
+          <h3 data-i18n="f3_h3">Registra ventas y conoce tus ingresos reales</h3>
+          <p class="s" data-i18n="f3_p">Crea órdenes de venta, asigna clientes y lleva el control de pagos pendientes y cobrados. Los reportes te muestran qué productos se venden más y cuánto generas por periodo.</p>
+          <ul class="fcl">
+            <li class="s" data-i18n="f3_li1">Registro de órdenes con líneas de producto</li>
+            <li class="s" data-i18n="f3_li2">Gestión de clientes y datos de contacto</li>
+            <li class="s" data-i18n="f3_li3">Estado de pago: pendiente, parcial, cobrado</li>
+            <li class="s" data-i18n="f3_li4">Reporte de ventas por día, semana o mes</li>
+            <li class="s" data-i18n="f3_li5">Top productos más vendidos</li>
+          </ul>
+          <span class="pr2" style="font-size:10px;padding:3px 10px" data-i18n="f3_pro_badge">Módulo PRO</span>
+        </div>
+        <div class="fv">
+          <div class="vt s" data-i18n="f3_mk_title">Órdenes de venta — Junio 2026</div>
+          <div class="vc">
+            <div class="vr"><span class="s">#ORD-0041 · Valentina M.</span><span class="vv g s">$78.00</span></div>
+            <div class="vr"><span class="s">#ORD-0042 · Tienda Aromas</span><span class="vv g s">$210.00</span></div>
+            <div class="vr"><span class="s">#ORD-0043 · Lucía T.</span><span class="vv s" style="color:#EF9F27" data-i18n="f3_mk_r3">$55.00 pend.</span></div>
+            <div class="vr"><span class="s">#ORD-0044 · Carolina P.</span><span class="vv g s">$130.00</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px">
+            <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.2);border-radius:8px;padding:10px">
+              <div class="s" style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px" data-i18n="f3_mk_income">Ingresos del mes</div>
+              <div class="s" style="font-size:20px;font-weight:700;color:#5DCAA5">$473.00</div>
+            </div>
+            <div style="background:rgba(160,122,69,.08);border:1px solid rgba(160,122,69,.15);border-radius:8px;padding:10px">
+              <div class="s" style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px" data-i18n="f3_mk_top">Producto top</div>
+              <div class="s" style="font-size:13px;font-weight:700;color:var(--gd2)" data-i18n="f3_mk_top_val">Vela de coco</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="sec" style="background:var(--cr2)">
+  <div class="w">
+    <div class="tc">
+      <div class="sl s" data-i18n="proof_label">Testimonios</div>
+      <h2 class="sh" data-i18n="proof_h2">Fabricantes reales, resultados reales</h2>
+    </div>
+    <div class="tg">
+      <div class="tm"><div class="stars">★★★★★</div><blockquote data-i18n="t1_quote">"Por fin pude saber exactamente cuánto me cuesta cada vela. Antes vendía a ciegas. Ahora tengo el precio correcto y mi margen subió al 45%."</blockquote><div class="ta s"><strong data-i18n="t1_name">Valentina M.</strong><span data-i18n="t1_role">Fabricante artesanal · Colombia</span></div></div>
+      <div class="tm"><div class="stars">★★★★★</div><blockquote data-i18n="t2_quote">"El módulo de producción es increíble. Tengo 3 operarias y ahora todas siguen el mismo proceso. La calidad mejoró y desperdiciamos mucho menos material."</blockquote><div class="ta s"><strong data-i18n="t2_name">Lucía T.</strong><span data-i18n="t2_role">Taller de velas · México</span></div></div>
+      <div class="tm"><div class="stars">★★★★★</div><blockquote data-i18n="t3_quote">"El inventario me avisa cuando algo está por agotarse. Llevo 4 meses sin quedarme sin cera a mitad de producción. Eso solo ya pagó el software."</blockquote><div class="ta s"><strong data-i18n="t3_name">Carolina P.</strong><span data-i18n="t3_role">Negocio de velas premium · Argentina</span></div></div>
+    </div>
+    <div class="stb">
+      <div class="si"><div class="sn">6</div><div class="sl2 s" data-i18n="stat1_label">Idiomas disponibles</div></div>
+      <div class="si"><div class="sn">15+</div><div class="sl2 s" data-i18n="stat2_label">Módulos incluidos</div></div>
+      <div class="si"><div class="sn">100%</div><div class="sl2 s" data-i18n="stat3_label">App offline, sin internet</div></div>
+      <div class="si"><div class="sn">1x</div><div class="sl2 s" data-i18n="stat4_label">Pago único, sin mensualidad</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES SECTION -->
+<section class="lang-sec">
+  <div class="w" style="position:relative;z-index:1">
+    <div class="tc" style="margin-bottom:48px">
+      <div class="sl" style="color:var(--gd2)" data-i18n="lang_label">Alcance global</div>
+      <div class="lang-big-num">6</div>
+      <h2 style="font-size:clamp(30px,4vw,52px);color:#fff;letter-spacing:-1px;margin-bottom:16px;margin-top:8px" data-i18n-html="lang_h2">Disponible en <span style="color:var(--gd2)">6 idiomas</span></h2>
+      <p style="font-family:-apple-system,sans-serif;font-size:16px;color:rgba(255,255,255,.55);max-width:560px;margin:0 auto" data-i18n="lang_sub">Candle Factory Suite está vendido en Hotmart para fabricantes de velas de todo el mundo. Cambia el idioma desde configuración en cualquier momento.</p>
+    </div>
+
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-flag">ES</div>
+        <div class="lang-name">Español</div>
+        <div class="lang-native">Spanish</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">EN</div>
+        <div class="lang-name">English</div>
+        <div class="lang-native">Inglés</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">PT</div>
+        <div class="lang-name">Português</div>
+        <div class="lang-native">Portuguese</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">FR</div>
+        <div class="lang-name">Français</div>
+        <div class="lang-native">French</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">DE</div>
+        <div class="lang-name">Deutsch</div>
+        <div class="lang-native">German</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-flag">RU</div>
+        <div class="lang-name">Русский</div>
+        <div class="lang-native">Russian</div>
+      </div>
+    </div>
+
+    <div class="tc">
+      <div class="lang-note-pill">
+        <span style="font-size:18px">🌐</span>
+        <span class="s" style="font-size:13px;color:rgba(255,255,255,.7)" data-i18n="lang_note">Cambia el idioma desde Configuración → Idioma en la app</span>
+      </div>
+    </div>
+
+    <!-- Hotmart badge -->
+    <div class="tc" style="margin-top:32px">
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 24px">
+        <span style="font-size:22px">🛒</span>
+        <span class="s" style="font-size:13px;color:rgba(255,255,255,.5)" data-i18n="lang_hotmart">Distribuido globalmente a través de <strong style="color:rgba(255,255,255,.8)">Hotmart</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec tc" style="background:var(--cr)" id="precios">
+  <div class="w">
+    <div style="background:linear-gradient(90deg,#D85A30,#B84020);color:#fff;border-radius:10px;padding:12px 20px;margin-bottom:32px;display:inline-flex;align-items:center;gap:12px">
+      <span style="font-size:18px">⏰</span>
+      <span class="s" style="font-size:13px;font-weight:600" data-i18n="price_banner">Precio de lanzamiento — disponible por tiempo limitado</span>
+    </div>
+    <div class="sl s" data-i18n="price_label">Precios</div>
+    <h2 class="sh2" style="color:var(--nv)" data-i18n="price_h2">Pago único. Sin suscripciones.</h2>
+    <p class="sub s" data-i18n="price_sub">Paga una vez y usa el software para siempre. Actualizaciones incluidas.</p>
+
+    <div class="prc-grid-3" style="display:grid;grid-template-columns:1fr 1.05fr 1fr;gap:16px;max-width:980px;margin:0 auto">
+
+      <!-- EASY -->
+      <div class="prc">
+        <div class="pln s" data-i18n="easy_name">Easy</div>
+        <div class="prr"><span class="prs s">$</span><span class="pra s">19</span><span class="prp s">USD</span></div>
+        <p class="prn s" data-i18n-html="easy_desc">Pago único · Licencia por dispositivo<br>Para talleres que empiezan.</p>
+        <hr class="pfd">
+        <ul class="pfl">
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f1">Inventario completo con alertas</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f2">Producción guiada paso a paso</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f3">Recetas con ingredientes y temperaturas</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f4">Calculadora de costos y precio sugerido</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f5">Generador de etiquetas y QR</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f6">Dashboard con KPIs en tiempo real</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f7">6 idiomas disponibles</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f8">Backup y restauración de datos</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="easy_f9">100% offline, sin internet requerido</span></li>
+        </ul>
+        <a href="https://hotmart.com/product/candle-factory-suite-easy" class="bb bbe s" target="_blank" data-i18n="easy_btn">Comprar Easy — $19 USD</a>
+      </div>
+
+      <!-- PRO UPGRADE -->
+      <div class="prc pro">
+        <div class="mop s" data-i18n="upg_badge">⭐ Más popular</div>
+        <div class="pln s" data-i18n="upg_name">Upgrade a PRO</div>
+        <div class="prr"><span class="prs s">$</span><span class="pra s">14<span style="font-size:28px">.99</span></span><span class="prp s">USD</span></div>
+        <p class="prn s" data-i18n-html="upg_desc">Requiere tener Easy · Pago único<br>Desbloquea todos los módulos PRO.</p>
+        <hr class="pfd">
+        <ul class="pfl">
+          <li><span class="ck">✓</span><span class="s" data-i18n="upg_f1">Todo lo de Easy incluido</span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f2">Lotes de curado con trazabilidad</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f3">Control de calidad por lote (QA)</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f4">Compras y gestión de proveedores</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f5">Reportes exportables en PDF</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f6">Calculadora PRO + punto de equilibrio</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f7">Simulador de precio de venta</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f8">Comparar recetas lado a lado</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f9">Usuarios multi-operario con PIN</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f10">Notificaciones de alertas internas</span> <span class="fb">PRO</span></span></li>
+          <li><span class="ck">✓</span><span class="s"><span data-i18n="upg_f11">Ventas: órdenes, clientes y reportes</span> <span class="fb">PRO</span></span></li>
+        </ul>
+        <a href="https://hotmart.com/product/candle-factory-suite-upgrade" class="bb bbp s" target="_blank" data-i18n="upg_btn">Upgrade a PRO — $14.99 USD ↗</a>
+      </div>
+
+      <!-- PRO DIRECT -->
+      <div class="prc" style="border-color:rgba(160,122,69,.25);position:relative">
+        <div style="position:absolute;top:20px;right:20px;background:rgba(216,90,48,.1);border:1px solid rgba(216,90,48,.3);color:#D85A30;font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:100px" data-i18n="pro_badge">🔥 Precio de lanzamiento</div>
+        <div class="pln s" data-i18n="pro_name">PRO Completo</div>
+        <div class="prr"><span class="prs s">$</span><span class="pra s">24<span style="font-size:28px">.99</span></span><span class="prp s">USD</span></div>
+        <p class="prn s" style="color:var(--t2)" data-i18n-html="pro_desc">Easy + PRO juntos · Pago único<br>Sin necesitar comprar Easy antes.</p>
+        <hr class="pfd">
+        <ul class="pfl">
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f1">Todos los módulos Easy incluidos</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f2">Todos los módulos PRO incluidos</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f3">Un solo pago, acceso completo</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f4">Ahorra $9 vs comprar por separado</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f5">Lotes, QA, Compras, PDF, Calculadora</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f6">Simulador, Comparar recetas, PIN</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f7">6 idiomas + backup + notificaciones</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f8">Ventas: órdenes, clientes y reportes</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f9">100% offline, sin internet</span></li>
+          <li><span class="ck">✓</span><span class="s" data-i18n="pro_f10">Actualizaciones de por vida</span></li>
+        </ul>
+        <a href="https://hotmart.com/product/candle-factory-suite-pro-direct" class="bb s" style="background:var(--nv);color:#fff;display:block;width:100%;text-align:center;padding:15px;border-radius:12px;font-family:-apple-system,sans-serif;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s" target="_blank" data-i18n="pro_btn">Comprar PRO Completo — $24.99 ↗</a>
+        <div class="s" style="font-size:11px;color:#D85A30;text-align:center;margin-top:8px;font-weight:600" data-i18n="pro_note">⏰ Precio de lanzamiento · sujeto a cambio</div>
+      </div>
+
+    </div>
+
+    <div class="pg3 s" style="margin-top:24px" data-i18n="price_guarantee">🔒 Pago seguro a través de Hotmart · 7 días de garantía · Soporte en español</div>
+    <div style="margin-top:16px;padding:14px 20px;background:rgba(29,158,117,.08);border:1px solid rgba(29,158,117,.15);border-radius:12px;display:inline-flex;align-items:center;gap:10px">
+      <span style="font-size:16px">💡</span>
+      <span class="s" style="font-size:13px;color:var(--t2)" data-i18n-html="price_tip">¿Ya tienes Easy? El <strong>upgrade a PRO cuesta solo $14.99</strong>. ¿Empiezas desde cero? Elige el <strong>PRO Completo por $24.99</strong> y ahorra $9.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec tc" style="background:var(--cr2)" id="faq">
+  <div class="ws">
+    <div class="sl s" data-i18n="faq_label">Preguntas frecuentes</div>
+    <h2 class="sh" data-i18n="faq_h2">¿Tienes dudas?</h2>
+    <div class="fql">
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq1_q">¿En qué sistema operativo funciona?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq1_a">Candle Factory Suite es una aplicación de escritorio para <strong>Windows 10 y Windows 11</strong>. No requiere internet — todos tus datos se guardan localmente en tu computadora.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq2_q">¿Qué diferencia hay entre Easy y PRO?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq2_a">Easy incluye los módulos esenciales: inventario, producción, recetas, costos y etiquetas. PRO agrega trazabilidad de lotes, control de calidad, compras, reportes en PDF, calculadora avanzada y acceso multi-usuario con PIN.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq3_q">¿El pago es único o hay mensualidad?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq3_a"><strong>Pago completamente único.</strong> No hay suscripciones ni cobros mensuales. Pagas una vez y el software es tuyo para siempre, incluyendo actualizaciones futuras.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq4_q">¿Puedo probar antes de comprar?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq4_a">Hotmart ofrece <strong>7 días de garantía</strong>. Si en ese período sientes que el software no es para ti, solicitas el reembolso y te lo devolvemos sin preguntas.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq5_q">¿En qué idiomas está disponible?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq5_a">Disponible en <strong>6 idiomas</strong>: español, inglés, portugués, francés, alemán y ruso. Puedes cambiar el idioma en cualquier momento desde configuración.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq6_q">¿Mis datos están seguros?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq6_a">Completamente. Todos tus datos se almacenan <strong>localmente en tu computadora</strong>. No enviamos nada a servidores externos. El software funciona 100% offline.</div></div>
+      <div class="fqi"><button class="fqq s" onclick="toggleFaq(this)"><span data-i18n="faq7_q">¿Tiene soporte técnico?</span><span class="fqarr">↓</span></button><div class="fqa s" data-i18n-html="faq7_a">Sí. Escríbenos a <strong>servicioalcliente@seitonhome.com</strong>. Respondemos en español en 24-48 horas hábiles.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sct">
+  <div class="ws">
+    <div style="font-size:56px;margin-bottom:24px">🕯️</div>
+    <h2 data-i18n-html="cta_h2">Tu taller lo tiene todo.<br>Ahora dale el software que merece.</h2>
+    <p class="s" data-i18n="cta_p">Únete a los fabricantes que ya controlan su negocio con datos reales.</p>
+    <div class="ctb">
+      <a href="https://hotmart.com/product/candle-factory-suite-easy" class="bse s" target="_blank" data-i18n="cta_easy">Solo Easy — $19</a>
+      <a href="https://hotmart.com/product/candle-factory-suite-pro-direct" class="bp s" target="_blank" data-i18n="cta_pro">PRO Completo — $24.99 ↗</a>
+    </div>
+    <p class="cpn s" data-i18n="cta_note">¿Ya tienes Easy? El upgrade a PRO cuesta solo $14.99 · 7 días de garantía</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fbr">🕯️ Candle Factory Suite · By Seiton Home</div>
+    <div class="fls">
+      <a href="mailto:servicioalcliente@seitonhome.com" data-i18n="footer_support">Soporte</a>
+      <a href="#precios" data-i18n="footer_pricing">Precios</a>
+      <a href="#faq" data-i18n="footer_faq">FAQ</a>
+      <a href="https://hotmart.com/product/candle-factory-suite-pro" target="_blank" data-i18n="footer_buy">Comprar</a>
+    </div>
+  </div>
+  <p class="fcp s" data-i18n="footer_copy">© 2026 Seiton Home. Todos los derechos reservados. · app.seitonhome.com</p>
+</footer>
+
+<script>
+const T = {
+  es: {
+    nav_modules:"Módulos",nav_pricing:"Precios",nav_faq:"FAQ",
+    nav_buy:'<span style="display:inline-block;width:7px;height:7px;background:#ff6b4a;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite"></span>Comprar ahora — $24.99',
+    hero_badge:"✦ Software para fabricantes de velas artesanales",
+    hero_h1:'Tu taller merece algo <span class="ac">mejor que Excel.</span>',
+    hero_sub:"Candle Factory Suite es el único software diseñado específicamente para fabricantes de velas. Controla inventario, costos, producción, lotes de curado y etiquetas desde un solo lugar.",
+    hero_cta:"🕯️ Comenzar con PRO Completo — $24.99",hero_plans:"Ver planes",
+    hero_t1:"🔒 Pago único",hero_t2:"💻 Windows desktop",hero_t3:"🌎 6 idiomas",
+    mk_productions:"Producciones",mk_inventory:"Inventario",mk_curing:"En curado",mk_profit:"Ganancia est.",
+    mk_top:"Top productos fabricados",mk_coconut:"Vela de coco",mk_lavender:"Vela lavanda",mk_vanilla:"Vela vainilla",
+    mk_inv_title:"Inventario",mk_coco_wax:"Cera de coco",mk_lav_frag:"Fragancia lavanda",mk_wick:"Pabilo #6",
+    mk_ok:"OK",mk_low:"Bajo",mk_critical:"Crítico",
+    prob_label:"El problema",prob_h2:"¿Te suena familiar?",
+    prob1_h3:"Hojas de cálculo interminables",prob1_p:"Fórmulas que se rompen, datos desincronizados y horas perdidas actualizando manualmente cada cambio de inventario.",
+    prob2_h3:"No sabes si estás ganando",prob2_p:"Calculas a ojo el costo de cada vela. No tienes claro tu margen real, y a veces vendes por debajo del costo de producción.",
+    prob3_h3:"Inventario a ciegas",prob3_p:"Te quedas sin cera en medio de producción. No ves el stock crítico hasta que es demasiado tarde para hacer el pedido.",
+    sol_label:"La solución",sol_h2:"Todo lo que necesita tu taller, en un solo lugar.",sol_sub:"Diseñado desde cero para fabricantes de velas. Nada de software genérico adaptado.",
+    mod1_h3:"Inventario inteligente",mod1_p:"Stock en tiempo real, alertas de nivel crítico, categorías por material y exportación CSV.",
+    mod2_h3:"Producción guiada",mod2_p:"Órdenes de fabricación paso a paso con checklist, temporizadores y seguimiento de avance.",
+    mod3_h3:"Costos y margen",mod3_p:"Costo exacto de cada vela incluyendo mano de obra, energía y merma. Precio sugerido automático.",
+    mod4_h3:"Recetas completas",mod4_p:"Ingredientes, temperaturas, tiempos de curado y fragancia. Duplica y adapta con un clic.",
+    mod5_h3:"Etiquetas y QR",mod5_p:"Genera etiquetas personalizadas con código QR para trazabilidad de cada lote.",
+    mod6_h3:"Reportes en PDF",mod6_p:"Exporta reportes de producción, inventario y financiero listos para compartir.",
+    mod7_h3:"Control de calidad",mod7_p:"Inspecciones por lote, tasa de rechazo y defectos. Trazabilidad completa.",
+    mod8_h3:"Compras y proveedores",mod8_p:"Órdenes de compra con líneas de materiales. Al recibir, el inventario se actualiza solo.",
+    mod9_h3:"Calculadora PRO",mod9_p:"Punto de equilibrio, proyección de ingresos y rentabilidad por lote.",
+    mod10_h3:"Módulo de Ventas",mod10_p:"Registra órdenes de venta, clientes y pagos. Reportes de ingresos, productos más vendidos y ventas por periodo.",
+    feat_label:"Cómo funciona",feat_h2:"Diseñado para tu flujo de trabajo real",feat_sub:"No necesitas capacitarte. Si haces velas, lo entiendes.",
+    f1_h3:"Fabrica con confianza, paso a paso",f1_p:"Cada producción tiene una checklist guiada: preparar área, pesar materiales, fundir cera, agregar fragancia, verter y curar. No se te olvida nada.",
+    f1_li1:"Temporizadores integrados por paso",f1_li2:"Pasos personalizables por técnica",f1_li3:"Barra de progreso visible en tiempo real",f1_li4:"Historial completo de cada producción",
+    f1_mk_title:"CF-20260529-0004 · 10 velas",f1_mk_s1:"✓ Preparar área",f1_mk_s1s:"Completado",f1_mk_s2:"✓ Pesar materiales",f1_mk_s2s:"Completado",
+    f1_mk_s3:"⧗ Fundir cera",f1_mk_s3s:"En proceso",f1_mk_s4:"○ Agregar fragancia",f1_mk_s4s:"Pendiente",f1_mk_s5:"○ Verter y enfriar",f1_mk_s5s:"Pendiente",f1_mk_prog:"Progreso",
+    f2_h3:"Conoce el costo exacto de cada vela",f2_p:"Ingresa materiales, mano de obra y energía. La calculadora te dice cuánto cuesta fabricar y qué precio poner para ganar el margen que quieres.",
+    f2_li1:"Costo de materiales por receta automático",f2_li2:"Mano de obra y costos fijos prorrateados",f2_li3:"Precio sugerido con margen configurable",f2_li4:"Historial de costos guardado por fecha",
+    f2_mk_title:"Costos — Vela de coco y vainilla",f2_mk_r1:"Cera de coco (120 g)",f2_mk_r2:"Fragancia vainilla (18 g)",f2_mk_r3:"Pabilo + recipiente",f2_mk_r4:"Etiqueta + caja",f2_mk_r5:"Mano de obra estimada",
+    f2_mk_label:"Costo → Precio sugerido",f2_mk_margin:"Margen",
+    f3_h3:"Registra ventas y conoce tus ingresos reales",f3_p:"Crea órdenes de venta, asigna clientes y lleva el control de pagos pendientes y cobrados. Los reportes te muestran qué productos se venden más y cuánto generas por periodo.",
+    f3_li1:"Registro de órdenes con líneas de producto",f3_li2:"Gestión de clientes y datos de contacto",f3_li3:"Estado de pago: pendiente, parcial, cobrado",f3_li4:"Reporte de ventas por día, semana o mes",f3_li5:"Top productos más vendidos",
+    f3_pro_badge:"Módulo PRO",f3_mk_title:"Órdenes de venta — Junio 2026",f3_mk_r3:"$55.00 pend.",f3_mk_income:"Ingresos del mes",f3_mk_top:"Producto top",f3_mk_top_val:"Vela de coco",
+    proof_label:"Testimonios",proof_h2:"Fabricantes reales, resultados reales",
+    t1_quote:'"Por fin pude saber exactamente cuánto me cuesta cada vela. Antes vendía a ciegas. Ahora tengo el precio correcto y mi margen subió al 45%."',t1_name:"Valentina M.",t1_role:"Fabricante artesanal · Colombia",
+    t2_quote:'"El módulo de producción es increíble. Tengo 3 operarias y ahora todas siguen el mismo proceso. La calidad mejoró y desperdiciamos mucho menos material."',t2_name:"Lucía T.",t2_role:"Taller de velas · México",
+    t3_quote:'"El inventario me avisa cuando algo está por agotarse. Llevo 4 meses sin quedarme sin cera a mitad de producción. Eso solo ya pagó el software."',t3_name:"Carolina P.",t3_role:"Negocio de velas premium · Argentina",
+    stat1_label:"Idiomas disponibles",stat2_label:"Módulos incluidos",stat3_label:"App offline, sin internet",stat4_label:"Pago único, sin mensualidad",
+    lang_label:"Alcance global",lang_h2:'Disponible en <span style="color:var(--gd2)">6 idiomas</span>',
+    lang_sub:"Candle Factory Suite está vendido en Hotmart para fabricantes de velas de todo el mundo. Cambia el idioma desde configuración en cualquier momento.",
+    lang_note:"Cambia el idioma desde Configuración → Idioma en la app",lang_hotmart:'Distribuido globalmente a través de <strong style="color:rgba(255,255,255,.8)">Hotmart</strong>',
+    price_banner:"Precio de lanzamiento — disponible por tiempo limitado",price_label:"Precios",price_h2:"Pago único. Sin suscripciones.",price_sub:"Paga una vez y usa el software para siempre. Actualizaciones incluidas.",
+    easy_name:"Easy",easy_desc:"Pago único · Licencia por dispositivo<br>Para talleres que empiezan.",
+    easy_f1:"Inventario completo con alertas",easy_f2:"Producción guiada paso a paso",easy_f3:"Recetas con ingredientes y temperaturas",easy_f4:"Calculadora de costos y precio sugerido",
+    easy_f5:"Generador de etiquetas y QR",easy_f6:"Dashboard con KPIs en tiempo real",easy_f7:"6 idiomas disponibles",easy_f8:"Backup y restauración de datos",easy_f9:"100% offline, sin internet requerido",
+    easy_btn:"Comprar Easy — $19 USD",
+    upg_badge:"⭐ Más popular",upg_name:"Upgrade a PRO",upg_desc:"Requiere tener Easy · Pago único<br>Desbloquea todos los módulos PRO.",
+    upg_f1:"Todo lo de Easy incluido",upg_f2:"Lotes de curado con trazabilidad",upg_f3:"Control de calidad por lote (QA)",upg_f4:"Compras y gestión de proveedores",upg_f5:"Reportes exportables en PDF",
+    upg_f6:"Calculadora PRO + punto de equilibrio",upg_f7:"Simulador de precio de venta",upg_f8:"Comparar recetas lado a lado",upg_f9:"Usuarios multi-operario con PIN",upg_f10:"Notificaciones de alertas internas",upg_f11:"Ventas: órdenes, clientes y reportes",
+    upg_btn:"Upgrade a PRO — $14.99 USD ↗",
+    pro_badge:"🔥 Precio de lanzamiento",pro_name:"PRO Completo",pro_desc:"Easy + PRO juntos · Pago único<br>Sin necesitar comprar Easy antes.",
+    pro_f1:"Todos los módulos Easy incluidos",pro_f2:"Todos los módulos PRO incluidos",pro_f3:"Un solo pago, acceso completo",pro_f4:"Ahorra $9 vs comprar por separado",pro_f5:"Lotes, QA, Compras, PDF, Calculadora",
+    pro_f6:"Simulador, Comparar recetas, PIN",pro_f7:"6 idiomas + backup + notificaciones",pro_f8:"Ventas: órdenes, clientes y reportes",pro_f9:"100% offline, sin internet",pro_f10:"Actualizaciones de por vida",
+    pro_btn:"Comprar PRO Completo — $24.99 ↗",pro_note:"⏰ Precio de lanzamiento · sujeto a cambio",
+    price_guarantee:"🔒 Pago seguro a través de Hotmart · 7 días de garantía · Soporte en español",
+    price_tip:'¿Ya tienes Easy? El <strong>upgrade a PRO cuesta solo $14.99</strong>. ¿Empiezas desde cero? Elige el <strong>PRO Completo por $24.99</strong> y ahorra $9.',
+    faq_label:"Preguntas frecuentes",faq_h2:"¿Tienes dudas?",
+    faq1_q:"¿En qué sistema operativo funciona?",faq1_a:'Candle Factory Suite es una aplicación de escritorio para <strong>Windows 10 y Windows 11</strong>. No requiere internet — todos tus datos se guardan localmente en tu computadora.',
+    faq2_q:"¿Qué diferencia hay entre Easy y PRO?",faq2_a:'Easy incluye los módulos esenciales: inventario, producción, recetas, costos y etiquetas. PRO agrega trazabilidad de lotes, control de calidad, compras, reportes en PDF, calculadora avanzada y acceso multi-usuario con PIN.',
+    faq3_q:"¿El pago es único o hay mensualidad?",faq3_a:'<strong>Pago completamente único.</strong> No hay suscripciones ni cobros mensuales. Pagas una vez y el software es tuyo para siempre, incluyendo actualizaciones futuras.',
+    faq4_q:"¿Puedo probar antes de comprar?",faq4_a:'Hotmart ofrece <strong>7 días de garantía</strong>. Si en ese período sientes que el software no es para ti, solicitas el reembolso y te lo devolvemos sin preguntas.',
+    faq5_q:"¿En qué idiomas está disponible?",faq5_a:'Disponible en <strong>6 idiomas</strong>: español, inglés, portugués, francés, alemán y ruso. Puedes cambiar el idioma en cualquier momento desde configuración.',
+    faq6_q:"¿Mis datos están seguros?",faq6_a:'Completamente. Todos tus datos se almacenan <strong>localmente en tu computadora</strong>. No enviamos nada a servidores externos. El software funciona 100% offline.',
+    faq7_q:"¿Tiene soporte técnico?",faq7_a:'Sí. Escríbenos a <strong>servicioalcliente@seitonhome.com</strong>. Respondemos en español en 24-48 horas hábiles.',
+    cta_h2:'Tu taller lo tiene todo.<br>Ahora dale el software que merece.',cta_p:"Únete a los fabricantes que ya controlan su negocio con datos reales.",
+    cta_easy:"Solo Easy — $19",cta_pro:"PRO Completo — $24.99 ↗",cta_note:"¿Ya tienes Easy? El upgrade a PRO cuesta solo $14.99 · 7 días de garantía",
+    footer_support:"Soporte",footer_pricing:"Precios",footer_faq:"FAQ",footer_buy:"Comprar",footer_copy:"© 2026 Seiton Home. Todos los derechos reservados. · app.seitonhome.com"
+  },
+  en: {
+    nav_modules:"Modules",nav_pricing:"Pricing",nav_faq:"FAQ",
+    nav_buy:'<span style="display:inline-block;width:7px;height:7px;background:#ff6b4a;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite"></span>Buy now — $24.99',
+    hero_badge:"✦ Software for artisan candle makers",
+    hero_h1:'Your workshop deserves something <span class="ac">better than Excel.</span>',
+    hero_sub:"Candle Factory Suite is the only software specifically designed for candle makers. Control inventory, costs, production, curing batches and labels all in one place.",
+    hero_cta:"🕯️ Get PRO Complete — $24.99",hero_plans:"See plans",
+    hero_t1:"🔒 One-time payment",hero_t2:"💻 Windows desktop",hero_t3:"🌎 6 languages",
+    mk_productions:"Productions",mk_inventory:"Inventory",mk_curing:"Curing",mk_profit:"Est. profit",
+    mk_top:"Top manufactured products",mk_coconut:"Coconut candle",mk_lavender:"Lavender candle",mk_vanilla:"Vanilla candle",
+    mk_inv_title:"Inventory",mk_coco_wax:"Coconut wax",mk_lav_frag:"Lavender fragrance",mk_wick:"Wick #6",
+    mk_ok:"OK",mk_low:"Low",mk_critical:"Critical",
+    prob_label:"The problem",prob_h2:"Does this sound familiar?",
+    prob1_h3:"Endless spreadsheets",prob1_p:"Broken formulas, out-of-sync data and hours wasted manually updating every inventory change.",
+    prob2_h3:"You don't know if you're making money",prob2_p:"You guess the cost of each candle. Your real margin is unclear, and sometimes you sell below production cost.",
+    prob3_h3:"Flying blind on inventory",prob3_p:"You run out of wax mid-production. You don't see critical stock until it's too late to reorder.",
+    sol_label:"The solution",sol_h2:"Everything your workshop needs, in one place.",sol_sub:"Built from scratch for candle makers. No generic software adapted.",
+    mod1_h3:"Smart inventory",mod1_p:"Real-time stock, critical level alerts, material categories and CSV export.",
+    mod2_h3:"Guided production",mod2_p:"Step-by-step manufacturing orders with checklist, timers and progress tracking.",
+    mod3_h3:"Costs and margin",mod3_p:"Exact cost per candle including labor, energy and waste. Automatic suggested price.",
+    mod4_h3:"Complete recipes",mod4_p:"Ingredients, temperatures, curing times and fragrance. Duplicate and adapt with one click.",
+    mod5_h3:"Labels and QR",mod5_p:"Generate custom labels with QR code for full batch traceability.",
+    mod6_h3:"PDF reports",mod6_p:"Export production, inventory and financial reports ready to share.",
+    mod7_h3:"Quality control",mod7_p:"Batch inspections, rejection rate and defects. Full traceability.",
+    mod8_h3:"Purchasing & suppliers",mod8_p:"Purchase orders with material lines. When received, inventory updates automatically.",
+    mod9_h3:"PRO Calculator",mod9_p:"Break-even point, income projection and batch profitability.",
+    mod10_h3:"Sales module",mod10_p:"Record sales orders, customers and payments. Revenue reports, top products and sales by period.",
+    feat_label:"How it works",feat_h2:"Designed for your real workflow",feat_sub:"No training needed. If you make candles, you'll understand it.",
+    f1_h3:"Manufacture with confidence, step by step",f1_p:"Every production has a guided checklist: prepare area, weigh materials, melt wax, add fragrance, pour and cure. Nothing gets forgotten.",
+    f1_li1:"Built-in timers per step",f1_li2:"Customizable steps per technique",f1_li3:"Real-time visible progress bar",f1_li4:"Full history of every production",
+    f1_mk_title:"CF-20260529-0004 · 10 candles",f1_mk_s1:"✓ Prepare area",f1_mk_s1s:"Done",f1_mk_s2:"✓ Weigh materials",f1_mk_s2s:"Done",
+    f1_mk_s3:"⧗ Melt wax",f1_mk_s3s:"In progress",f1_mk_s4:"○ Add fragrance",f1_mk_s4s:"Pending",f1_mk_s5:"○ Pour and cool",f1_mk_s5s:"Pending",f1_mk_prog:"Progress",
+    f2_h3:"Know the exact cost of each candle",f2_p:"Enter materials, labor and energy. The calculator tells you how much it costs to make and what price to set to earn the margin you want.",
+    f2_li1:"Automatic material cost per recipe",f2_li2:"Labor and fixed costs prorated",f2_li3:"Suggested price with configurable margin",f2_li4:"Cost history saved by date",
+    f2_mk_title:"Costs — Coconut vanilla candle",f2_mk_r1:"Coconut wax (120 g)",f2_mk_r2:"Vanilla fragrance (18 g)",f2_mk_r3:"Wick + container",f2_mk_r4:"Label + box",f2_mk_r5:"Estimated labor",
+    f2_mk_label:"Cost → Suggested price",f2_mk_margin:"Margin",
+    f3_h3:"Record sales and know your real income",f3_p:"Create sales orders, assign customers and keep track of pending and collected payments. Reports show which products sell most and how much you generate per period.",
+    f3_li1:"Order records with product lines",f3_li2:"Customer management and contact info",f3_li3:"Payment status: pending, partial, collected",f3_li4:"Sales report by day, week or month",f3_li5:"Top selling products",
+    f3_pro_badge:"PRO Module",f3_mk_title:"Sales orders — June 2026",f3_mk_r3:"$55.00 pend.",f3_mk_income:"Monthly income",f3_mk_top:"Top product",f3_mk_top_val:"Coconut candle",
+    proof_label:"Testimonials",proof_h2:"Real makers, real results",
+    t1_quote:'"I finally knew exactly how much each candle costs me. I used to sell blind. Now I have the right price and my margin jumped to 45%."',t1_name:"Valentina M.",t1_role:"Artisan maker · Colombia",
+    t2_quote:'"The production module is incredible. I have 3 workers and now they all follow the same process. Quality improved and we waste much less material."',t2_name:"Lucía T.",t2_role:"Candle workshop · Mexico",
+    t3_quote:"\"Inventory alerts me when something's running low. I've gone 4 months without running out of wax mid-production. That alone paid for the software.\"",t3_name:"Carolina P.",t3_role:"Premium candle business · Argentina",
+    stat1_label:"Languages available",stat2_label:"Modules included",stat3_label:"Offline app, no internet",stat4_label:"One-time payment, no subscription",
+    lang_label:"Global reach",lang_h2:'Available in <span style="color:var(--gd2)">6 languages</span>',
+    lang_sub:"Candle Factory Suite is sold on Hotmart for candle makers worldwide. Switch language from settings at any time.",
+    lang_note:"Change language from Settings → Language in the app",lang_hotmart:'Distributed globally through <strong style="color:rgba(255,255,255,.8)">Hotmart</strong>',
+    price_banner:"Launch price — available for limited time",price_label:"Pricing",price_h2:"One-time payment. No subscriptions.",price_sub:"Pay once and use the software forever. Updates included.",
+    easy_name:"Easy",easy_desc:"One-time payment · Per device license<br>For workshops just starting out.",
+    easy_f1:"Full inventory with alerts",easy_f2:"Step-by-step guided production",easy_f3:"Recipes with ingredients and temperatures",easy_f4:"Cost calculator and suggested price",
+    easy_f5:"Label and QR generator",easy_f6:"Dashboard with real-time KPIs",easy_f7:"6 languages available",easy_f8:"Backup and data restore",easy_f9:"100% offline, no internet required",
+    easy_btn:"Buy Easy — $19 USD",
+    upg_badge:"⭐ Most popular",upg_name:"Upgrade to PRO",upg_desc:"Requires Easy · One-time payment<br>Unlock all PRO modules.",
+    upg_f1:"Everything in Easy included",upg_f2:"Curing batches with traceability",upg_f3:"Batch quality control (QA)",upg_f4:"Purchasing and supplier management",upg_f5:"Exportable PDF reports",
+    upg_f6:"PRO Calculator + break-even",upg_f7:"Sale price simulator",upg_f8:"Compare recipes side by side",upg_f9:"Multi-operator users with PIN",upg_f10:"Internal alert notifications",upg_f11:"Sales: orders, customers and reports",
+    upg_btn:"Upgrade to PRO — $14.99 USD ↗",
+    pro_badge:"🔥 Launch price",pro_name:"PRO Complete",pro_desc:"Easy + PRO together · One-time payment<br>No need to buy Easy first.",
+    pro_f1:"All Easy modules included",pro_f2:"All PRO modules included",pro_f3:"Single payment, full access",pro_f4:"Save $9 vs buying separately",pro_f5:"Batches, QA, Purchases, PDF, Calculator",
+    pro_f6:"Simulator, Compare recipes, PIN",pro_f7:"6 languages + backup + notifications",pro_f8:"Sales: orders, customers and reports",pro_f9:"100% offline, no internet",pro_f10:"Lifetime updates",
+    pro_btn:"Buy PRO Complete — $24.99 ↗",pro_note:"⏰ Launch price · subject to change",
+    price_guarantee:"🔒 Secure payment through Hotmart · 7-day guarantee · Spanish support",
+    price_tip:'Already have Easy? <strong>Upgrade to PRO for just $14.99</strong>. Starting fresh? Get the <strong>PRO Complete for $24.99</strong> and save $9.',
+    faq_label:"Frequently asked questions",faq_h2:"Any questions?",
+    faq1_q:"What operating system does it run on?",faq1_a:'Candle Factory Suite is a desktop application for <strong>Windows 10 and Windows 11</strong>. No internet required — all your data is stored locally on your computer.',
+    faq2_q:"What's the difference between Easy and PRO?",faq2_a:'Easy includes essential modules: inventory, production, recipes, costs and labels. PRO adds batch traceability, quality control, purchasing, PDF reports, advanced calculator and multi-user PIN access.',
+    faq3_q:"Is the payment one-time or monthly?",faq3_a:"<strong>Completely one-time payment.</strong> No subscriptions or monthly charges. Pay once and the software is yours forever, including future updates.",
+    faq4_q:"Can I try before buying?",faq4_a:"Hotmart offers a <strong>7-day guarantee</strong>. If during that period you feel the software isn't right for you, request a refund and we'll return it no questions asked.",
+    faq5_q:"What languages is it available in?",faq5_a:'Available in <strong>6 languages</strong>: Spanish, English, Portuguese, French, German and Russian. You can change the language at any time from settings.',
+    faq6_q:"Is my data safe?",faq6_a:"Completely. All your data is stored <strong>locally on your computer</strong>. We don't send anything to external servers. The software works 100% offline.",
+    faq7_q:"Is there technical support?",faq7_a:'Yes. Write to us at <strong>servicioalcliente@seitonhome.com</strong>. We respond in Spanish within 24-48 business hours.',
+    cta_h2:'Your workshop has everything.<br>Now give it the software it deserves.',cta_p:"Join the makers who already run their business with real data.",
+    cta_easy:"Easy only — $19",cta_pro:"PRO Complete — $24.99 ↗",cta_note:"Already have Easy? Upgrade to PRO for just $14.99 · 7-day guarantee",
+    footer_support:"Support",footer_pricing:"Pricing",footer_faq:"FAQ",footer_buy:"Buy",footer_copy:"© 2026 Seiton Home. All rights reserved. · app.seitonhome.com"
+  }
+};
+
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('cfs_lang', lang); } catch(e) {}
+  document.documentElement.lang = lang;
+
+  if (lang === 'en') {
+    document.title = 'Candle Factory Suite — Software for artisan candle makers';
+    document.querySelector('meta[name="description"]').content = 'The only software designed for artisan candle makers. Control inventory, costs, production and labels from one place.';
+  } else {
+    document.title = 'Candle Factory Suite — Software para fabricantes de velas artesanales';
+    document.querySelector('meta[name="description"]').content = 'El único software diseñado para fabricantes de velas artesanales. Controla inventario, costos, producción y etiquetas desde un solo lugar.';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-html');
+    if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+}
+
+function toggleFaq(btn) {
+  var i = btn.closest('.fqi'), w = i.classList.contains('open');
+  document.querySelectorAll('.fqi').forEach(function(x) { x.classList.remove('open'); });
+  if (!w) i.classList.add('open');
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); }
+  });
+});
+
+var obs = new IntersectionObserver(function(es) {
+  es.forEach(function(e) {
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.pc,.mcd,.tm,.fr,.lang-card').forEach(function(el) {
+  el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity .5s ease,transform .5s ease';
+  obs.observe(el);
+});
+
+var saved = 'es';
+try { saved = localStorage.getItem('cfs_lang') || 'es'; } catch(e) {}
+setLang(saved);
+</script>
+</body>
+</html>
