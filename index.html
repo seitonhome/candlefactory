@@ -26,7 +26,8 @@ h1,h2,h3{font-family:Georgia,serif;font-weight:normal}
 .tc{text-align:center}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,19,66,.97);border-bottom:1px solid rgba(160,122,69,.2);padding:14px 24px}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100}
+nav{background:rgba(28,19,66,.97);border-bottom:1px solid rgba(160,122,69,.2);padding:14px 24px}
 .ni{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
 .nb{display:flex;align-items:center;gap:10px;font-family:Georgia,serif;font-size:17px;color:#fff;text-decoration:none}
 .nr{display:flex;align-items:center;gap:16px}
@@ -40,6 +41,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,19,66,.97
 .ls-btn{background:none;border:none;cursor:pointer;font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.75);transition:all .2s;padding:5px 12px;letter-spacing:.5px}
 .ls-btn.active{background:var(--gd);color:var(--nv)}
 .ls-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,.1)}
+
+/* PROMO BAR */
+.promo-bar{position:relative;background:linear-gradient(90deg,#D85A30,#B84020);padding:9px 44px}
+.promo-bar-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-family:-apple-system,sans-serif;font-size:12.5px;color:#fff;text-align:center;line-height:1.4}
+.promo-bar-inner strong{color:#FFD9A0;font-weight:800}
+.promo-bar-inner s{color:rgba(255,255,255,.55)}
+.promo-fire{font-size:14px;animation:pulse 1.4s ease-in-out infinite;flex-shrink:0}
+.promo-timer{display:flex;align-items:center;gap:5px;margin-left:2px}
+.pt-seg{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:3px 6px;display:flex;align-items:baseline;gap:2px;min-width:30px;justify-content:center}
+.pt-seg span{font-weight:800;font-size:12.5px;color:#FFD9A0;font-variant-numeric:tabular-nums}
+.pt-seg small{font-size:9px;color:rgba(255,255,255,.65);text-transform:lowercase}
+.promo-close{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.55);font-size:18px;cursor:pointer;line-height:1;padding:6px;font-family:-apple-system,sans-serif}
+.promo-close:hover{color:#fff}
+@media(max-width:600px){.promo-bar{padding:8px 34px}.promo-bar-inner{font-size:10.5px;gap:6px}.pt-seg{padding:2px 5px;min-width:24px}.pt-seg span{font-size:11px}}
+
+/* HERO PRICE FLAG */
+.hpf{display:inline-flex;align-items:center;gap:10px;background:rgba(160,122,69,.1);border:1px solid rgba(160,122,69,.3);border-radius:100px;padding:8px 18px;margin-bottom:22px;font-family:-apple-system,sans-serif}
+.hpf-old{font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through}
+.hpf-arrow{font-size:13px;color:rgba(255,255,255,.35)}
+.hpf-new{font-size:17px;font-weight:800;color:var(--gd2)}
+.hpf-badge{background:linear-gradient(90deg,#D85A30,#B84020);color:#fff;font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:100px;white-space:nowrap}
 
 /* HERO */
 .hero{background:linear-gradient(160deg,var(--nv) 0%,var(--nv2) 50%,#3A2470 100%);padding:140px 24px 100px;position:relative;overflow:hidden}
@@ -151,10 +173,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,19,66,.97
 .prg{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;max-width:820px;margin:0 auto}
 .prc{background:var(--wh);border:1px solid rgba(28,19,66,.1);border-radius:20px;padding:36px;position:relative;overflow:hidden}
 .prc.pro{background:var(--nv);border-color:rgba(160,122,69,.3)}
-.mop{position:absolute;top:20px;right:20px;background:rgba(160,122,69,.15);border:1px solid rgba(160,122,69,.3);color:var(--gd2);font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:100px}
+.mop{position:absolute;top:20px;right:20px;background:linear-gradient(90deg,#D85A30,#B84020);border:1px solid rgba(255,255,255,.15);color:#fff;font-family:-apple-system,sans-serif;font-size:10px;font-weight:800;letter-spacing:1px;padding:4px 10px;border-radius:100px}
 .pln{font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
 .prc.pro .pln{color:rgba(255,255,255,.4)}
 .prr{display:flex;align-items:baseline;gap:6px;margin-bottom:8px}
+.pr-old{font-family:-apple-system,sans-serif;font-size:22px;font-weight:600;color:rgba(255,255,255,.35);text-decoration:line-through;margin-right:4px}
+.pr-save{font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:#5DCAA5;margin-bottom:10px}
 .prs{font-family:-apple-system,sans-serif;font-size:20px;font-weight:700;color:var(--nv)}
 .prc.pro .prs{color:var(--gd2)}
 .pra{font-family:-apple-system,sans-serif;font-size:48px;font-weight:800;color:var(--nv);line-height:1;letter-spacing:-2px}
@@ -216,23 +240,38 @@ footer{background:#0F0C22;padding:40px 24px}
 </head>
 <body>
 
-<nav>
-  <div class="ni">
-    <a href="#" class="nb">🕯️ Candle Factory Suite</a>
-    <div class="nr">
-      <div class="nl s">
-        <a href="#modulos" data-i18n="nav_modules">Módulos</a>
-        <a href="#precios" data-i18n="nav_pricing">Precios</a>
-        <a href="#faq" data-i18n="nav_faq">FAQ</a>
-        <a href="https://pay.hotmart.com/L105937233I?checkoutMode=2" class="nc hotmart-fb" onclick="return false;" data-i18n-html="nav_buy"><span style="display:inline-block;width:7px;height:7px;background:#ff6b4a;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite"></span>Comprar ahora — $24.99</a>
-      </div>
-      <div class="lang-sw">
-        <button id="lang-es" class="ls-btn active" onclick="setLang('es')">ES</button>
-        <button id="lang-en" class="ls-btn" onclick="setLang('en')">EN</button>
+<div class="site-header" id="site-header">
+  <div class="promo-bar" id="promo-bar">
+    <div class="promo-bar-inner s">
+      <span class="promo-fire">🔥</span>
+      <span data-i18n-html="promo_text">Oferta de lanzamiento <s>$99</s> <strong>$24.99</strong> — termina en</span>
+      <span class="promo-timer" aria-live="polite">
+        <span class="pt-seg"><span id="pt-d">30</span><small data-i18n="promo_d">d</small></span>
+        <span class="pt-seg"><span id="pt-h">00</span><small data-i18n="promo_h">h</small></span>
+        <span class="pt-seg"><span id="pt-m">00</span><small data-i18n="promo_m">m</small></span>
+        <span class="pt-seg"><span id="pt-s">00</span><small data-i18n="promo_s">s</small></span>
+      </span>
+    </div>
+    <button class="promo-close" id="promo-close" onclick="closePromoBar()" aria-label="Cerrar">×</button>
+  </div>
+  <nav>
+    <div class="ni">
+      <a href="#" class="nb">🕯️ Candle Factory Suite</a>
+      <div class="nr">
+        <div class="nl s">
+          <a href="#modulos" data-i18n="nav_modules">Módulos</a>
+          <a href="#precios" data-i18n="nav_pricing">Precios</a>
+          <a href="#faq" data-i18n="nav_faq">FAQ</a>
+          <a href="https://pay.hotmart.com/L105937233I?checkoutMode=2" class="nc hotmart-fb" onclick="return false;" data-i18n-html="nav_buy"><span style="display:inline-block;width:7px;height:7px;background:#ff6b4a;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite"></span>Comprar ahora — $24.99</a>
+        </div>
+        <div class="lang-sw">
+          <button id="lang-es" class="ls-btn active" onclick="setLang('es')">ES</button>
+          <button id="lang-en" class="ls-btn" onclick="setLang('en')">EN</button>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -241,6 +280,12 @@ footer{background:#0F0C22;padding:40px 24px}
       <div class="hb fu s" data-i18n="hero_badge">✦ Software para fabricantes de velas artesanales</div>
       <h1 class="fu d1" data-i18n-html="hero_h1">Tu taller merece algo <span class="ac">mejor que Excel.</span></h1>
       <p class="hs s fu d2" data-i18n="hero_sub">Candle Factory Suite es el único software diseñado específicamente para fabricantes de velas. Controla inventario, costos, producción, lotes de curado y etiquetas desde un solo lugar.</p>
+      <div class="hpf fu d2">
+        <span class="hpf-old">$99</span>
+        <span class="hpf-arrow">→</span>
+        <span class="hpf-new">$24.99</span>
+        <span class="hpf-badge" data-i18n="hero_discount_badge">-75% OFF</span>
+      </div>
       <div class="hc fu d3">
         <a href="https://pay.hotmart.com/L105937233I?checkoutMode=2" class="bp s hotmart-fb" onclick="return false;" data-i18n="hero_cta">🕯️ Comenzar con PRO Completo — $24.99</a>
         <a href="#precios" class="bse s" data-i18n="hero_plans">Ver planes</a>
@@ -505,9 +550,10 @@ footer{background:#0F0C22;padding:40px 24px}
 
       <!-- PRO COMPLETO -->
       <div class="prc pro" style="border-color:rgba(160,122,69,.3)">
-        <div class="mop s" data-i18n="pro_badge">🔥 Precio de lanzamiento</div>
+        <div class="mop s" data-i18n="pro_badge">🔥 -75% OFF</div>
         <div class="pln s" data-i18n="pro_name">PRO Completo</div>
-        <div class="prr"><span class="prs s">$</span><span class="pra s">24<span style="font-size:28px">.99</span></span><span class="prp s">USD</span></div>
+        <div class="prr"><span class="pr-old s">$99</span><span class="prs s">$</span><span class="pra s">24<span style="font-size:28px">.99</span></span><span class="prp s">USD</span></div>
+        <div class="pr-save s" data-i18n="pro_save">Ahorras $74.01 · Oferta de lanzamiento</div>
         <p class="prn s" data-i18n-html="pro_desc">Acceso completo · Pago único<br>Todos los módulos incluidos.</p>
         <hr class="pfd">
         <ul class="pfl">
@@ -589,6 +635,9 @@ const T = {
     hero_sub:"Candle Factory Suite es el único software diseñado específicamente para fabricantes de velas. Controla inventario, costos, producción, lotes de curado y etiquetas desde un solo lugar.",
     hero_cta:"🕯️ Comenzar con PRO Completo — $24.99",hero_plans:"Ver precio",
     hero_t1:"🔒 Pago único",hero_t2:"💻 Windows desktop",hero_t3:"🌎 6 idiomas",
+    hero_discount_badge:"-75% OFF",
+    promo_text:'Oferta de lanzamiento <s>$99</s> <strong>$24.99</strong> — termina en',
+    promo_d:"d",promo_h:"h",promo_m:"m",promo_s:"s",
     mk_productions:"Producciones",mk_inventory:"Inventario",mk_curing:"En curado",mk_profit:"Ganancia est.",
     mk_top:"Top productos fabricados",mk_coconut:"Vela de coco",mk_lavender:"Vela lavanda",mk_vanilla:"Vela vainilla",
     mk_inv_title:"Inventario",mk_coco_wax:"Cera de coco",mk_lav_frag:"Fragancia lavanda",mk_wick:"Pabilo #6",
@@ -637,7 +686,8 @@ const T = {
     upg_f1:"Todo lo de Easy incluido",upg_f2:"Lotes de curado con trazabilidad",upg_f3:"Control de calidad por lote (QA)",upg_f4:"Compras y gestión de proveedores",upg_f5:"Reportes exportables en PDF",
     upg_f6:"Calculadora PRO + punto de equilibrio",upg_f7:"Simulador de precio de venta",upg_f8:"Comparar recetas lado a lado",upg_f9:"Usuarios multi-operario con PIN",upg_f10:"Notificaciones de alertas internas",upg_f11:"Ventas: órdenes, clientes y reportes",
     upg_btn:"Upgrade a PRO — $14.99 USD ↗",
-    pro_badge:"🔥 Precio de lanzamiento",pro_name:"PRO Completo",pro_desc:"Acceso completo · Pago único<br>Todos los módulos incluidos.",
+    pro_badge:"🔥 -75% OFF",pro_name:"PRO Completo",pro_desc:"Acceso completo · Pago único<br>Todos los módulos incluidos.",
+    pro_save:"Ahorras $74.01 · Oferta de lanzamiento",
     pro_f1:"Todos los módulos Easy incluidos",pro_f2:"Todos los módulos PRO incluidos",pro_f3:"Un solo pago, acceso completo",pro_f4:"Ahorra $9 vs comprar por separado",pro_f5:"Lotes, QA, Compras, PDF, Calculadora",
     pro_f6:"Simulador, Comparar recetas, PIN",pro_f7:"6 idiomas + backup + notificaciones",pro_f8:"Ventas: órdenes, clientes y reportes",pro_f9:"100% offline, sin internet",pro_f10:"Actualizaciones de por vida",
     pro_btn:"Comprar PRO Completo — $24.99 ↗",pro_note:"⏰ Precio de lanzamiento · sujeto a cambio",
@@ -663,6 +713,9 @@ const T = {
     hero_sub:"Candle Factory Suite is the only software specifically designed for candle makers. Control inventory, costs, production, curing batches and labels all in one place.",
     hero_cta:"🕯️ Get PRO Complete — $24.99",hero_plans:"See pricing",
     hero_t1:"🔒 One-time payment",hero_t2:"💻 Windows desktop",hero_t3:"🌎 6 languages",
+    hero_discount_badge:"-75% OFF",
+    promo_text:'Launch offer <s>$99</s> <strong>$24.99</strong> — ends in',
+    promo_d:"d",promo_h:"h",promo_m:"m",promo_s:"s",
     mk_productions:"Productions",mk_inventory:"Inventory",mk_curing:"Curing",mk_profit:"Est. profit",
     mk_top:"Top manufactured products",mk_coconut:"Coconut candle",mk_lavender:"Lavender candle",mk_vanilla:"Vanilla candle",
     mk_inv_title:"Inventory",mk_coco_wax:"Coconut wax",mk_lav_frag:"Lavender fragrance",mk_wick:"Wick #6",
@@ -711,7 +764,8 @@ const T = {
     upg_f1:"Everything in Easy included",upg_f2:"Curing batches with traceability",upg_f3:"Batch quality control (QA)",upg_f4:"Purchasing and supplier management",upg_f5:"Exportable PDF reports",
     upg_f6:"PRO Calculator + break-even",upg_f7:"Sale price simulator",upg_f8:"Compare recipes side by side",upg_f9:"Multi-operator users with PIN",upg_f10:"Internal alert notifications",upg_f11:"Sales: orders, customers and reports",
     upg_btn:"Upgrade to PRO — $14.99 USD ↗",
-    pro_badge:"🔥 Launch price",pro_name:"PRO Complete",pro_desc:"Full access · One-time payment<br>All modules included.",
+    pro_badge:"🔥 -75% OFF",pro_name:"PRO Complete",pro_desc:"Full access · One-time payment<br>All modules included.",
+    pro_save:"Save $74.01 · Launch offer",
     pro_f1:"All Easy modules included",pro_f2:"All PRO modules included",pro_f3:"Single payment, full access",pro_f4:"Save $9 vs buying separately",pro_f5:"Batches, QA, Purchases, PDF, Calculator",
     pro_f6:"Simulator, Compare recipes, PIN",pro_f7:"6 languages + backup + notifications",pro_f8:"Sales: orders, customers and reports",pro_f9:"100% offline, no internet",pro_f10:"Lifetime updates",
     pro_btn:"Buy PRO Complete — $24.99 ↗",pro_note:"⏰ Launch price · subject to change",
@@ -765,10 +819,75 @@ function toggleFaq(btn) {
   if (!w) i.classList.add('open');
 }
 
+/* PROMO COUNTDOWN — 30-day launch offer, persisted per visitor */
+var PROMO_KEY = 'cfs_promo_deadline';
+var PROMO_DISMISS_KEY = 'cfs_promo_dismissed';
+var PROMO_DAYS = 30;
+
+function getPromoDeadline() {
+  var stored = null;
+  try { stored = localStorage.getItem(PROMO_KEY); } catch(e) {}
+  var deadline = stored ? parseInt(stored, 10) : NaN;
+  if (!deadline || isNaN(deadline)) {
+    deadline = Date.now() + PROMO_DAYS * 24 * 60 * 60 * 1000;
+    try { localStorage.setItem(PROMO_KEY, String(deadline)); } catch(e) {}
+  }
+  return deadline;
+}
+
+function updatePromoTimer() {
+  var el = document.getElementById('promo-bar');
+  if (!el) return;
+  var diff = getPromoDeadline() - Date.now();
+  if (diff < 0) diff = 0;
+  var pad = function(n) { return String(n).padStart(2, '0'); };
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+  var dEl = document.getElementById('pt-d'), hEl = document.getElementById('pt-h');
+  var mEl = document.getElementById('pt-m'), sEl = document.getElementById('pt-s');
+  if (dEl) dEl.textContent = pad(d);
+  if (hEl) hEl.textContent = pad(h);
+  if (mEl) mEl.textContent = pad(m);
+  if (sEl) sEl.textContent = pad(s);
+}
+
+function closePromoBar() {
+  var el = document.getElementById('promo-bar');
+  if (el) el.style.display = 'none';
+  try { sessionStorage.setItem(PROMO_DISMISS_KEY, '1'); } catch(e) {}
+  adjustHeaderOffset();
+}
+
+function initPromoBar() {
+  var dismissed = false;
+  try { dismissed = sessionStorage.getItem(PROMO_DISMISS_KEY) === '1'; } catch(e) {}
+  if (dismissed) {
+    var el = document.getElementById('promo-bar');
+    if (el) el.style.display = 'none';
+    return;
+  }
+  updatePromoTimer();
+  setInterval(updatePromoTimer, 1000);
+}
+
+/* Keep hero content and anchor scrolling clear of the fixed header (bar + nav) */
+var headerOffset = 70;
+function adjustHeaderOffset() {
+  var header = document.getElementById('site-header');
+  if (!header) return;
+  headerOffset = header.offsetHeight;
+  var hero = document.querySelector('.hero');
+  if (hero) hero.style.paddingTop = (headerOffset + 40) + 'px';
+}
+window.addEventListener('resize', adjustHeaderOffset);
+window.addEventListener('load', adjustHeaderOffset);
+
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
     var t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); }
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - headerOffset - 10, behavior: 'smooth' }); }
   });
 });
 
@@ -785,6 +904,9 @@ document.querySelectorAll('.pc,.mcd,.tm,.fr,.lang-card').forEach(function(el) {
 var saved = 'es';
 try { saved = localStorage.getItem('cfs_lang') || 'es'; } catch(e) {}
 setLang(saved);
+
+adjustHeaderOffset();
+initPromoBar();
 </script>
 </body>
 </html>
